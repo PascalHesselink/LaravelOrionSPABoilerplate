@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function meData(User $user): array
     {
         return [
-            'user' => new AuthenticatedUserResource($user),
+                'user' => new AuthenticatedUserResource($user),
         ];
     }
 
@@ -37,19 +37,19 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'name'     => 'required|string|min:3|max:20|unique:users,name|regex:/^[a-zA-Z0-9_]*$/',
-            'email'    => 'required|email:rfc,filter|unique:users,email',
-            'password' => 'required|confirmed|min:6',
+                'name'     => 'required|string|min:3|max:20|unique:users,name|regex:/^[a-zA-Z0-9_]*$/',
+                'email'    => 'required|email:rfc,filter|unique:users,email',
+                'password' => 'required|confirmed|min:6',
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password)
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => Hash::make($request->password)
         ]);
 
         return response(array_merge($this->meData($user), [
-            'access_token' => $user->createToken('auth_token')->plainTextToken
+                'access_token' => $user->createToken('auth_token')->plainTextToken
         ]), 200);
     }
 
@@ -63,20 +63,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
+                'email'    => 'required|email',
+                'password' => 'required',
         ]);
 
         $user = User::whereEmail($request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                    'email' => ['The provided credentials are incorrect.'],
             ]);
         }
 
         return response(array_merge($this->meData($user), [
-            'access_token' => $user->createToken('auth_token')->plainTextToken
+                'access_token' => $user->createToken('auth_token')->plainTextToken
         ]), 200);
     }
 
