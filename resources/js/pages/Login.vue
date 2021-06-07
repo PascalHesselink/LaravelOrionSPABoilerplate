@@ -47,9 +47,7 @@
                             </router-link>
                         </FormButton>
                         <FormButton status="info">
-                            <button type="submit"
-                                    @click="submitForm"
-                            >
+                            <button type="submit">
                                 Sign in
                             </button>
                         </FormButton>

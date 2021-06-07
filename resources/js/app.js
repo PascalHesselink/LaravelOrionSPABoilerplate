@@ -10,6 +10,8 @@ import {restoreSession} from './helpers/RestoreSession';
 import formComponents from './helpers/formComponents';
 import helperMixin from './mixins/helperMixin';
 
+var dayjs = require('dayjs')
+
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(formComponents);
@@ -18,6 +20,7 @@ window.events = new Vue({});
 window.axios  = require('axios');
 
 Vue.prototype.events = window.events;
+Vue.prototype.dayjs  = dayjs;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

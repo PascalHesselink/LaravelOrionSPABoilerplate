@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-info {
+  @apply text-indigo-600 hover:text-indigo-900;
+}
+
+.text-success {
+  @apply text-green-600 hover:text-green-900;
+}
+
+.text-danger {
+  @apply text-red-600 hover:text-red-900;
+}

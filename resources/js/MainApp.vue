@@ -1,5 +1,6 @@
 <template>
     <div class="h-screen flex flex-col">
+        <LoadingStatusBar/>
         <nav v-if="$store.getters.getUser"
              class="bg-white shadow relative flex flex-shrink-0"
         >
@@ -24,6 +25,14 @@
                             </router-link>
                         </div>
                     </div>
+                    <div class="flex">
+                        <button class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium text-danger"
+                                type="button"
+                                @click="$store.dispatch('clearSession')"
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -33,3 +42,11 @@
         </main>
     </div>
 </template>
+
+<script>
+import LoadingStatusBar from './components/LoadingStatusBar';
+
+export default {
+    components : {LoadingStatusBar}
+}
+</script>

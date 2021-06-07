@@ -35,10 +35,23 @@
                                             >
                                                 Created at
                                             </th>
-                                            <th class="relative px-6 py-3"
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                                 scope="col"
                                             >
-                                                <span class="sr-only">Edit</span>
+                                                Updated at
+                                            </th>
+                                            <th class="text-right px-6 py-3 uppercase space-x-3">
+                                                <span class="text-info whitespace-nowrap text-xs font-medium cursor-pointer"
+                                                      @click="$store.dispatch('fetchPosts')"
+                                                >
+                                                    Refresh
+                                                </span>
+                                                <router-link :to="{ name: 'posts.create' }"
+                                                             class="text-success whitespace-nowrap text-xs font-medium cursor-pointer"
+                                                             tag="a"
+                                                >
+                                                    Create new post
+                                                </router-link>
                                             </th>
                                         </tr>
                                         </thead>
@@ -56,12 +69,26 @@
                                                 {{ item.body }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ item.created_at }}
+                                                {{ dayjs(item.created_at).format('HH:mm, DD-MM-YYYY') }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a class="text-indigo-600 hover:text-indigo-900"
-                                                   href="#"
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {{ dayjs(item.updated_at).format('HH:mm, DD-MM-YYYY') }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                                                <router-link :to="{ name: 'posts.duplicate', params: { id: item.id } }"
+                                                             class="text-success"
+                                                             tag="a"
+                                                >Duplicate
+                                                </router-link>
+                                                <router-link :to="{ name: 'posts.edit', params: { id: item.id } }"
+                                                             class="text-info"
+                                                             tag="a"
                                                 >Edit
+                                                </router-link>
+                                                <a class="text-danger"
+                                                   href="javascript:void(0)"
+                                                   @click="deleteItem(item)"
+                                                >Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -81,6 +108,17 @@
 export default {
     created() {
         this.$store.dispatch('fetchPosts');
+    },
+    methods : {
+        deleteItem(item) {
+            if (confirm('Are you sure to delete this item?\n\nYou can\'t undo this action!')) {
+                axios.delete('/api/posts/' + item.id).then(res => {
+                    this.$store.dispatch('fetchPosts');
+                }).catch(err => {
+                    alert(JSON.stringify(err));
+                });
+            }
+        }
     }
 }
 </script>

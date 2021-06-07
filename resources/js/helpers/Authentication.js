@@ -1,5 +1,19 @@
 export function authenticate(store, route) {
-    axios.interceptors.response.use({}, (error) => {
+    axios.interceptors.request.use(function (config) {
+        if (window.events) window.events.$emit('setPageLoading', true);
+
+        return config;
+    }, function (error) {
+        return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use(function (response) {
+        if (window.events) window.events.$emit('setPageLoading', false);
+
+        return response;
+    }, (error) => {
+        if (window.events) window.events.$emit('setPageLoading', false);
+
         if (
             error.response.status === 401
         ) {
