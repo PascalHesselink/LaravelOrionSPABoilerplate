@@ -37,13 +37,22 @@
                         />
                     </FormInput>
 
-                    <div>
-                        <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                type="submit"
-                                @click="submitForm"
-                        >
-                            Sign in
-                        </button>
+                    <div class="flex space-x-3">
+                        <FormButton status="default">
+                            <router-link :to="{ name: 'index' }"
+                                         tag="button"
+                                         type="button"
+                            >
+                                Cancel
+                            </router-link>
+                        </FormButton>
+                        <FormButton status="info">
+                            <button type="submit"
+                                    @click="submitForm"
+                            >
+                                Sign in
+                            </button>
+                        </FormButton>
                     </div>
                 </form>
             </div>

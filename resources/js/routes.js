@@ -2,6 +2,8 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+import PostsIndex from './pages/Posts/Index';
+
 // Auth level
 // 0 - All users can view this page whether they are authenticated or not
 // 1 - Users should be authenticated to view this page
@@ -31,6 +33,14 @@ export default {
             component : Register,
             meta      : {
                 authLevel : 2
+            }
+        },
+        {
+            name      : 'posts.index',
+            path      : '/posts/index',
+            component : PostsIndex,
+            meta      : {
+                authLevel : 1
             }
         }
     ],

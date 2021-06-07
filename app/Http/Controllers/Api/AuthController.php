@@ -37,9 +37,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-                'name'     => 'required|string|min:3|max:20|unique:users,name|regex:/^[a-zA-Z0-9_]*$/',
-                'email'    => 'required|email:rfc,filter|unique:users,email',
-                'password' => 'required|confirmed|min:6',
+                'name'                  => 'required|string|min:3|max:20|unique:users,name|regex:/^[a-zA-Z0-9_]*$/',
+                'email'                 => 'required|email:rfc,filter|unique:users,email',
+                'password'              => 'required|confirmed|min:6',
+                'password_confirmation' => 'required|string|min:6'
         ]);
 
         $user = User::create([
