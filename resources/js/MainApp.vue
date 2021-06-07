@@ -3,7 +3,7 @@
         <nav v-if="$store.getters.getUser"
              class="bg-white shadow relative flex flex-shrink-0"
         >
-            <div class="px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto">
                 <div class="flex justify-between h-16">
                     <div class="flex">
                         <div class="hidden md:ml-6 md:flex md:space-x-8">
