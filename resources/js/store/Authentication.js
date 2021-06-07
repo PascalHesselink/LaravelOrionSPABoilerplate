@@ -12,15 +12,14 @@ const getters = {
 
 const actions = {
     async fetchAuthUser({commit}) {
-        return await axios.post('/auth/me').then((res) => {
+        return await axios.get('/api/auth/me').then((res) => {
             commit('setUser', res.data.user);
-            commit('setGeneralData', res.data);
         }).catch(err => {
             this.dispatch('clearSession');
         });
     },
     async clearSession({commit}) {
-        return await axios.post('/auth/logout')
+        return await axios.post('/api/auth/logout')
                           .then((res) => {
                               commit('setAccessToken', '');
                               commit('setUser', '');

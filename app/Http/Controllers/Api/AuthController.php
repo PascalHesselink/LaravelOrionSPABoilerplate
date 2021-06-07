@@ -93,4 +93,15 @@ class AuthController extends Controller
             //
         ]), 200);
     }
+
+    /**
+     * Logout the authenticated user
+     *
+     */
+    public function logout()
+    {
+        $user = auth()->guard('sanctum')->user();
+
+        $user->currentAccessToken()->delete();
+    }
 }

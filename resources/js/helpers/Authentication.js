@@ -35,7 +35,7 @@ export function authenticate(store, route) {
             case 2: // User may not be authenticated to view this route, only guests
                 if (Authentication)
                     return next({
-                        name : 'index'
+                        name : 'home'
                     });
                 else
                     next();

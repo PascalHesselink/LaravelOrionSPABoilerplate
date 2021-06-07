@@ -19,6 +19,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', [AuthController::class, 'register']);
 
     Route::get('me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 });
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

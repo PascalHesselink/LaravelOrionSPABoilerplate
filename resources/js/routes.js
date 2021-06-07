@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 // Auth level
-// 0 - All users can view this page whether thewy are authenticated or not
+// 0 - All users can view this page whether they are authenticated or not
 // 1 - Users should be authenticated to view this page
 // 2 - Only guests can view this page
 

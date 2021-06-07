@@ -13,6 +13,7 @@
                 >
                     <FormInput label="Email address"
                                name="email"
+                               :errors="errors"
                     >
                         <input id="email"
                                v-model="formData.email"
@@ -23,23 +24,18 @@
                         />
                     </FormInput>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700"
-                               for="password"
-                        >
-                            Password
-                        </label>
-                        <div class="mt-1">
-                            <input id="password"
-                                   v-model="formData.password"
-                                   autocomplete="current-password"
-                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                   name="password"
-                                   required
-                                   type="password"
-                            >
-                        </div>
-                    </div>
+                    <FormInput :errors="errors"
+                               label="Password"
+                               name="password"
+                    >
+                        <input id="password"
+                               v-model="formData.password"
+                               autocomplete="password"
+                               name="password"
+                               required
+                               type="password"
+                        />
+                    </FormInput>
 
                     <div>
                         <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -69,8 +65,12 @@ export default {
     methods : {
         submitForm() {
             axios.post('/api/auth/login', this.formData).then(res => {
-                this.setUser(res.data.user);
-                this.setAccessToken(res.data.access_token);
+                this.$store.commit('setUser', res.data.user);
+                this.$store.commit('setAccessToken', res.data.access_token);
+
+                this.$router.push({
+                    name : 'index'
+                });
             }).catch(err => {
                 if (err.response.status === 422) this.errors = err.response.data.errors;
                 else alert(JSON.stringify(err));
