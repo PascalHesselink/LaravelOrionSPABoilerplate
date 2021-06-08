@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function authenticate(store, route) {
     axios.interceptors.request.use(function (config) {
         if (window.events) window.events.$emit('setPageLoading', true);
@@ -18,10 +20,6 @@ export function authenticate(store, route) {
             error.response.status === 401
         ) {
             store.dispatch('clearSession');
-
-            route.push({
-                name : 'login'
-            });
         }
 
         return Promise.reject(error);
@@ -68,6 +66,14 @@ export function authenticate(store, route) {
                 return route.push({
                     name : 'index'
                 });
+        }
+    });
+
+    store.subscribeAction({
+        after : (action, state) => {
+            if (action.type === 'clearSession') route.push({
+                name : 'login'
+            });
         }
     })
 }

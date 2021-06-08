@@ -52,8 +52,6 @@ export default {
             }
         },
 
-        // $router.push({ name: 'posts.index' });
-
         {
             ...childrenWithPrefix('posts', [
                 {

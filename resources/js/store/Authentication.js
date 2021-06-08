@@ -23,9 +23,6 @@ const actions = {
                           .then((res) => {
                               commit('setAccessToken', '');
                               commit('setUser', '');
-
-                              localStorage.removeItem('user-token');
-                              localStorage.removeItem('user-data');
                           });
     }
 };
@@ -33,12 +30,23 @@ const actions = {
 const mutations = {
     setUser        : (state, user) => {
         state.user = user;
-        localStorage.setItem('user-data', JSON.stringify(user));
+
+        if (user) {
+            localStorage.setItem('user-data', JSON.stringify(user));
+        } else {
+            localStorage.removeItem('user-data');
+        }
     },
     setAccessToken : (state, access_token) => {
         state.access_token = access_token;
-        localStorage.setItem('user-token', access_token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+
+        if (access_token) {
+            localStorage.setItem('user-token', access_token);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+        } else {
+            localStorage.removeItem('user-token');
+            axios.defaults.headers.common['Authorization'] = null;
+        }
     }
 };
 
