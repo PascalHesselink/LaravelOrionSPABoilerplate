@@ -19,8 +19,8 @@ export function authenticate(store, route) {
         if (
             error.response.status === 401
         ) {
-            store.commit('setUser', null);
-            store.commit('setAccessToken', null);
+            store.commit('setUser', '');
+            store.commit('setAccessToken', '');
 
             route.push({
                 name : 'login'
