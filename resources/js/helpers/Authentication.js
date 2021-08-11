@@ -19,7 +19,12 @@ export function authenticate(store, route) {
         if (
             error.response.status === 401
         ) {
-            store.dispatch('clearSession');
+            store.commit('setUser', null);
+            store.commit('setAccessToken', null);
+
+            route.push({
+                name : 'login'
+            });
         }
 
         return Promise.reject(error);
@@ -52,20 +57,6 @@ export function authenticate(store, route) {
                 else
                     next();
                 break;
-        }
-    });
-
-    route.afterEach((to) => {
-        let requiredPermission = to.meta.permission;
-        let Authentication     = store.state.Authentication.user;
-        let permissions        = Authentication.permissions;
-        let AuthLevel          = to.meta.authLevel;
-
-        if (AuthLevel === 1 && requiredPermission) {
-            if (!permissions.includes(requiredPermission))
-                return route.push({
-                    name : 'index'
-                });
         }
     });
 
