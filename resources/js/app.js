@@ -4,11 +4,13 @@ import VueRouter from 'vue-router';
 
 import MainApp from './MainApp';
 import RouteData from './routes';
-import StoreData from './store';
+import store from './store';
 import {authenticate} from './helpers/Authentication';
 import {restoreSession} from './helpers/RestoreSession';
 import formComponents from './helpers/formComponents';
 import helperMixin from './mixins/helperMixin';
+
+Vue.prototype.format = 'HH:mm, DD-MM-YYYY';
 
 var dayjs = require('dayjs')
 
@@ -24,7 +26,6 @@ Vue.prototype.dayjs  = dayjs;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-const store  = new Vuex.Store(StoreData);
 const router = new VueRouter(RouteData);
 
 Vue.mixin(helperMixin);

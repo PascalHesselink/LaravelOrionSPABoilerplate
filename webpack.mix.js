@@ -12,6 +12,10 @@ const tailwindcss = require('tailwindcss');
  |
  */
 
+mix.webpackConfig({
+    resolve : {fallback : {fs : false}}
+});
+
 mix.js('resources/js/app.js', 'public/js').vue();
 
 mix.sass('resources/sass/app.scss', 'public/css').options({

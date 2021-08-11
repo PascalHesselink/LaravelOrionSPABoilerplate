@@ -69,10 +69,10 @@
                                                 {{ item.body }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ dayjs(item.created_at).format('HH:mm, DD-MM-YYYY') }}
+                                                {{ dayjs(item.created_at).format(format) }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ dayjs(item.updated_at).format('HH:mm, DD-MM-YYYY') }}
+                                                {{ dayjs(item.updated_at).format(format) }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                                                 <router-link :to="{ name: 'posts.duplicate', params: { id: item.id } }"
